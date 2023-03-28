@@ -1,0 +1,14 @@
+<h1>Liste des copropriétaires</h1>
+
+<ul>
+  <li *ngFor="let copro of coproService.getCoproprietaires() | async">
+    {{ copro.nom }} ({{ copro.tantiemes }} tantièmes)
+    <select>
+      <option value="Pour">Pour</option>
+      <option value="Contre">Contre</option>
+      <option value="Abstention">Abstention</option>
+    </select>
+  </li>
+</ul>
+
+<!--<button (click)="onSubmit()">Enregistrer les votes</button>-->

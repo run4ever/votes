@@ -1,0 +1,43 @@
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+# Compiled output
+/votes-AG-front/dist
+/votes-AG-front/tmp
+/votes-AG-front/out-tsc
+/votes-AG-front/bazel-out
+
+# Node
+/votes-AG-backend/node_modules
+/votes-AG-front/node_modules
+/votes-AG-front/npm-debug.log
+/votes-AG-front/yarn-error.log
+
+# IDEs and editors
+*.idea/
+*.project
+*.classpath
+*.c9/
+*.launch
+*.settings/
+*.sublime-workspace
+
+# Visual Studio Code
+/votes-AG-front/.vscode/*
+!/votes-AG-front/.vscode/settings.json
+!/votes-AG-front/.vscode/tasks.json
+!/votes-AG-front/.vscode/launch.json
+!/votes-AG-front/.vscode/extensions.json
+/votes-AG-front/.history/*
+
+# Miscellaneous
+/votes-AG-front/.angular/cache
+/votes-AG-front/.sass-cache/
+/votes-AG-front/connect.lock
+/votes-AG-front/coverage
+/votes-AG-front/libpeerconnection.log
+/votes-AG-front/testem.log
+/votes-AG-front/typings
+
+# System files
+.DS_Store
+Thumbs.db
