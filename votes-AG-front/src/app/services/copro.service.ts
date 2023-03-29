@@ -4,12 +4,15 @@ import {
   BehaviorSubject,
   catchError,
   distinctUntilChanged,
+  filter,
   finalize,
   map,
   Observable,
   of,
   switchMap,
   tap,
+  take,
+  first,
 } from 'rxjs';
 import { Coproprietaire } from '../interfaces/coproprietaire';
 
@@ -52,5 +55,27 @@ export class CoproService {
 
   getCoproprietaires(): Observable<Coproprietaire[]> {
     return this.copros$.pipe(distinctUntilChanged());
+  }
+
+  getOneCoproById(id: string): Observable<Coproprietaire | undefined> {
+    return this.copros$.pipe(
+      map((copros) => copros.find((c) => c.id === id)),
+      filter((c) => c !== undefined)
+    );
+  }
+
+  update(coproToUpdate: Coproprietaire): Observable<void> {
+    return this.http.put<void>(url, coproToUpdate).pipe(
+      tap(() => {
+        this.refresh();
+      })
+    );
+  }
+
+  refresh(): void {
+    console.log('refresh');
+    this.http.get<Coproprietaire[]>(url).subscribe((copros) => {
+      this.copros$.next(copros);
+    });
   }
 }

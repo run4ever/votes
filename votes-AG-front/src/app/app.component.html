@@ -2,11 +2,11 @@
 
 <ul>
   <li *ngFor="let copro of coproService.getCoproprietaires() | async">
-    {{ copro.nom }} ({{ copro.tantiemes }} tantièmes)
-    <select>
-      <option value="Pour">Pour</option>
-      <option value="Contre">Contre</option>
-      <option value="Abstention">Abstention</option>
+    {{ copro.nom }} ({{ copro.tantiemes }} tantièmes) | {{ copro.vote01 }} |
+    <select (change)="update(copro.id, $event)">
+      <option value="1" [selected]="copro.vote01 == 1">Pour</option>
+      <option value="-1" [selected]="copro.vote01 == -1">Contre</option>
+      <option value="0" [selected]="copro.vote01 == 0">Abstention</option>
     </select>
   </li>
 </ul>

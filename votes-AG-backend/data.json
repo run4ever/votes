@@ -1,7 +1,32 @@
 [
-  { "nom": "Copropriétaire 1", "tantiemes": 110, "vote": "Abstention" },
-  { "nom": "Copropriétaire 2", "tantiemes": 111, "vote": "Abstention" },
-  { "nom": "Copropriétaire 3", "tantiemes": 112, "vote": "Abstention" },
-  { "nom": "Copropriétaire 4", "tantiemes": 113, "vote": "Abstention" },
-  { "nom": "Copropriétaire 5", "tantiemes": 114, "vote": "Abstention" }
+  {
+    "id": "cp-001",
+    "nom": "Copropriétaire 1",
+    "tantiemes": 210,
+    "vote01": "-1"
+  },
+  {
+    "id": "cp-002",
+    "nom": "Copropriétaire 2",
+    "tantiemes": 211,
+    "vote01": "-1"
+  },
+  {
+    "id": "cp-003",
+    "nom": "Copropriétaire 3",
+    "tantiemes": 212,
+    "vote01": "-1"
+  },
+  {
+    "id": "cp-004",
+    "nom": "Copropriétaire 4",
+    "tantiemes": 213,
+    "vote01": "-1"
+  },
+  {
+    "id": "cp-005",
+    "nom": "Copropriétaire 5",
+    "tantiemes": 214,
+    "vote01": "-1"
+  }
 ]

@@ -4,6 +4,15 @@ const fs = require("fs");
 
 const app = express();
 
+class Coproprietaire {
+  constructor(id, nom, tantiemes, vote01) {
+    this.id = id;
+    this.nom = nom;
+    this.tantiemes = tantiemes;
+    this.vote01 = vote01;
+  }
+}
+
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Headers", "*");
@@ -18,25 +27,36 @@ const dataFile = "data.json";
 // Récupérer tous les copropriétaires
 app.get("/coproprietaires", (req, res) => {
   // Lire les données depuis le fichier JSON
-  const data = JSON.parse(fs.readFileSync(dataFile));
-  res.json(data);
+  const coproprietaires = JSON.parse(fs.readFileSync(dataFile));
+  res.json(coproprietaires);
 });
 
 // Mettre à jour le résultat du vote pour un copropriétaire
-app.put("/coproprietaires/:nom", (req, res) => {
-  // Lire les données depuis le fichier JSON
-  const data = JSON.parse(fs.readFileSync(dataFile));
+app.put("/coproprietaires", (req, res) => {
+  console.log("update copro -- debut");
+  const coproprietaires = JSON.parse(fs.readFileSync(dataFile));
+  coproNewValues = new Coproprietaire();
+  coproNewValues = req.body;
+  const id = coproNewValues.id;
+  const vote01 = coproNewValues.vote01;
 
-  // Rechercher le copropriétaire par son nom
-  const coproprietaire = data.find((c) => c.nom === req.params.nom);
+  // Recherche du copropriétaire avec l'id correspondant
+  const coproToUpdate = coproprietaires.find((c) => c.id === id);
 
-  // Mettre à jour le résultat du vote
-  coproprietaire.vote = req.body.vote;
+  console.log(coproToUpdate);
 
-  // Enregistrer les données mises à jour dans le fichier JSON
-  fs.writeFileSync(dataFile, JSON.stringify(data, null, 2));
+  if (!coproToUpdate) {
+    res.status(404).send(`Copropriétaire avec l'id ${id} non trouvé`);
+  } else {
+    // Mise à jour du vote du copropriétaire
+    coproToUpdate.vote01 = vote01;
 
-  res.send("Résultat du vote mis à jour avec succès");
+    console.log(coproNewValues);
+
+    // Enregistrement des modifications dans le fichier JSON
+    fs.writeFileSync("data.json", JSON.stringify(coproprietaires, null, 2));
+  }
+  console.log("update copro -- fin");
 });
 
 app.listen(3000, () => {
