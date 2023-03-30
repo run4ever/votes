@@ -1,14 +1,55 @@
-<h1>Liste des copropriétaires</h1>
+<h1>Votes results</h1>
 
-<ul>
-  <li *ngFor="let copro of coproService.getCoproprietaires() | async">
-    {{ copro.nom }} ({{ copro.tantiemes }} tantièmes) | {{ copro.vote01 }} |
-    <select (change)="update(copro.id, $event)">
-      <option value="1" [selected]="copro.vote01 == 1">Pour</option>
-      <option value="-1" [selected]="copro.vote01 == -1">Contre</option>
-      <option value="0" [selected]="copro.vote01 == 0">Abstention</option>
-    </select>
-  </li>
-</ul>
+<div *ngFor="let n of numSequence(coproService.nbQuestions); let i = index">
+  <div class="container text-center">
+    <div class="row row-cols-3">
+      <div class="col resolution">Question {{ i + 1 }}</div>
+      <div class="col"></div>
+      <div class="col"></div>
+    </div>
+  </div>
 
-<!--<button (click)="onSubmit()">Enregistrer les votes</button>-->
+  <div class="container text-center result">
+    <div class="row row-cols-3">
+      <div class="col red">NO<br />{{ nbNo.get(myMap.get(i + 1) || "") }}</div>
+      <div class="col">
+        NO VOTE<br />{{ nbNoVote.get(myMap.get(i + 1) || "") }} /
+      </div>
+      <div class="col green">
+        YES<br />{{ nbYes.get(myMap.get(i + 1) || "") }} /
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="container text-center"
+    *ngFor="let copro of coproService.getCoproprietaires() | async"
+  >
+    <div class="row row-cols-3">
+      <div class="col">{{ copro.nom }}</div>
+      <div class="col">{{ copro.tantiemes }}</div>
+      <div class="col">
+        <select (change)="update(copro.id, myMap.get(i + 1) || '', $event)">
+          <option
+            value="1"
+            [selected]="copro.votes[myMap.get(i + 1) || ''] == 1"
+          >
+            Yes
+          </option>
+          <option
+            value="-1"
+            [selected]="copro.votes[myMap.get(i + 1) || ''] == -1"
+          >
+            No
+          </option>
+          <option
+            value="0"
+            [selected]="copro.votes[myMap.get(i + 1) || ''] == 0"
+          >
+            No vote
+          </option>
+        </select>
+      </div>
+    </div>
+  </div>
+</div>

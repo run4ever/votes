@@ -5,11 +5,11 @@ const fs = require("fs");
 const app = express();
 
 class Coproprietaire {
-  constructor(id, nom, tantiemes, vote01) {
+  constructor(id, nom, tantiemes, votes) {
     this.id = id;
     this.nom = nom;
     this.tantiemes = tantiemes;
-    this.vote01 = vote01;
+    this.votes = votes;
   }
 }
 
@@ -38,20 +38,20 @@ app.put("/coproprietaires", (req, res) => {
   coproNewValues = new Coproprietaire();
   coproNewValues = req.body;
   const id = coproNewValues.id;
-  const vote01 = coproNewValues.vote01;
+  const votes = coproNewValues.votes;
 
   // Recherche du copropriétaire avec l'id correspondant
   const coproToUpdate = coproprietaires.find((c) => c.id === id);
 
-  console.log(coproToUpdate);
+  console.log("anciennes valeurs :" + coproToUpdate);
 
   if (!coproToUpdate) {
     res.status(404).send(`Copropriétaire avec l'id ${id} non trouvé`);
   } else {
     // Mise à jour du vote du copropriétaire
-    coproToUpdate.vote01 = vote01;
+    coproToUpdate.votes = votes;
 
-    console.log(coproNewValues);
+    console.log("nouvelles valeurs :" + coproNewValues);
 
     // Enregistrement des modifications dans le fichier JSON
     fs.writeFileSync("data.json", JSON.stringify(coproprietaires, null, 2));
